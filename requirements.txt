@@ -1,2 +1,5 @@
+pillow==11.2.1
 Django==4.2
 djangorestframework==3.16
+dj-database-url==3.0.0
+psycopg2-binary
