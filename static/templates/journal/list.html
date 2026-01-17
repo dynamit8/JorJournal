@@ -12,8 +12,27 @@
 {% endblock %}
 
 {% block content %}
-<section class="content">
-    List all journals
+<section class="content journal">
+  <h1>List all journals</h1>
+  {% for journal in journals %}
+    <div class="record-block">
+      <h4 class="created">{{journal.created_at}}</h4>
+      <h4 class="updated">{{journal.updated_at}}</h4>
+      <h3 class="topic">{{journal.topic}}</h3>
+      
+      <div class="text">
+        {% for onelist in journal.text %}
+          <ul>
+            {% for item in onelist %}
+              <li>{{item}}</li>
+            {% endfor %}    
+          </ul>
+          <br>
+        {% endfor %}
+      </div>
+      
+    </div>
+  {% endfor %}
 </section>
 {% endblock %}
 

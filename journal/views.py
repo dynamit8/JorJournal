@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, CreateView
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.pagination import PageNumberPagination
@@ -29,6 +29,18 @@ class JournalHomeView(BaseTemplatePerModuleMixin, TemplateView):
 
 
 class JournalListView(BaseTemplatePerModuleMixin, ListView):
+    model = Journal
+    TEMPLATE_DIR = 'journal'
+    template_filename = 'list.html'
+    context_object_name = "journals"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        print(context)
+        return context
+
+
+class JournalCreateView(BaseTemplatePerModuleMixin, CreateView):
     model = Journal
     TEMPLATE_DIR = 'journal'
     template_filename = 'list.html'

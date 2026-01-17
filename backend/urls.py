@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework import routers
 from common.views import LandingView
-from journal.views import APIJournalViewset, APILessonViewset, JournalHomeView, JournalListView
+from journal.views import APIJournalViewset, APILessonViewset, JournalHomeView, JournalListView, JournalCreateView
 from achievement.views import APIAchievementViewset, AchievementHomeView, AchievementListView
 
 router = routers.DefaultRouter()
@@ -37,6 +37,8 @@ urlpatterns = [
     # journal
     path('journal/', JournalHomeView.as_view(), name='journal-home'),
     path('journal/list/', JournalListView.as_view(), name='journal-list'),
+    path('journal/create/', JournalCreateView.as_view(), name='journal-create'),
+    
     # path('journal/<int:pk>/', JournalDetailView.as_view(), name='journal-detail'),
     # achievement
     path('achievement/', AchievementHomeView.as_view(), name='achievement-home'),

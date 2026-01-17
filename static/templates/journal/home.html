@@ -13,7 +13,11 @@
 
 {% block content %}
 <section class="content">
-    Home all journals
+  <h1>Home all journals</h1>
+  <ol>
+    <li><a href="{% url 'journal-list'%}">List all journals</a></li>
+    <li><a href="{% url 'journal-create'%}">+ Journal</a></li>
+  </ol>
 </section>
 {% endblock %}
 
