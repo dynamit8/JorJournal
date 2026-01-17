@@ -10,18 +10,18 @@ services:
     networks: 
       - journal_network
 
-  # web:
-  #   build: .
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - .:/app
-  #   ports:
-  #     - "8000:8000"
-  #   depends_on:
-  #     - db
-  #   networks: 
-  #     - journal_network
+  web:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks: 
+      - journal_network
 
 volumes:
   postgres_data:
