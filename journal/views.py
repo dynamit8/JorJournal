@@ -7,12 +7,12 @@ from .models import Journal, Lesson
 from .serializers import JournalSerializer, LessonSerializer
 from .filters import LessonFilter
 
-class JournalViewset(ModelViewSet):
+class APIJournalViewset(ModelViewSet):
     queryset = Journal.objects.all()
     serializer_class = JournalSerializer
 
 
-class LessonViewset(ModelViewSet):
+class APILessonViewset(ModelViewSet):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     filter_backends = [filters.DjangoFilterBackend]

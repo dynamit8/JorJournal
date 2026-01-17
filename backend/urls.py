@@ -17,13 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from journal.views import JournalViewset, LessonViewset
-from achievement.views import AchievementViewset
+from journal.views import APIJournalViewset, APILessonViewset
+from achievement.views import APIAchievementViewset
 
 router = routers.DefaultRouter()
-router.register(r'journal', JournalViewset, basename='journal')
-router.register(r'lesson', LessonViewset, basename='lesson')
-router.register(r'achievement', AchievementViewset, basename='achievement')
+router.register(r'api/journal', APIJournalViewset, basename='journal')
+router.register(r'api/lesson', APILessonViewset, basename='lesson')
+router.register(r'api/achievement', APIAchievementViewset, basename='achievement')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
