@@ -16,16 +16,33 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 from rest_framework import routers
-from journal.views import APIJournalViewset, APILessonViewset
-from achievement.views import APIAchievementViewset
+from common.views import LandingView
+from journal.views import APIJournalViewset, APILessonViewset, JournalHomeView, JournalListView
+from achievement.views import APIAchievementViewset, AchievementHomeView, AchievementListView
 
 router = routers.DefaultRouter()
-router.register(r'api/journal', APIJournalViewset, basename='journal')
-router.register(r'api/lesson', APILessonViewset, basename='lesson')
-router.register(r'api/achievement', APIAchievementViewset, basename='achievement')
+router.register(r'journal', APIJournalViewset, basename='apijournal')
+router.register(r'lesson', APILessonViewset, basename='apilesson')
+router.register(r'achievement', APIAchievementViewset, basename='apiachievement')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
+
+    
+    path('', LandingView.as_view(), name='landing'),
+    # journal
+    path('journal/', JournalHomeView.as_view(), name='journal-home'),
+    path('journal/list/', JournalListView.as_view(), name='journal-list'),
+    # path('journal/<int:pk>/', JournalDetailView.as_view(), name='journal-detail'),
+    # achievement
+    path('achievement/', AchievementHomeView.as_view(), name='achievement-home'),
+    path('achievement/list/', AchievementListView.as_view(), name='achievement-list'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

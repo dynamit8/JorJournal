@@ -1,0 +1,31 @@
+<header class="topbar">
+    {% if user.is_authenticated %}
+        <div class="right-container">
+            <a href="{% url 'myProfile' %}" class="user-profile">
+                <span class="username-email">{{ user.email }}</span>
+                {% if user.profile.profile_image %}
+                    <img src="{{ user.profile.profile_image.url }}" alt="User Profile" class="profile-image">
+                {% else %}
+                    <img src="{{ STATIC_URL }}images/profile-icon.png" alt="User Profile" class="profile-avatar">
+                {% endif %}   
+            </a>
+            <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+        </div>
+    {% else %}
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'landing' %}"><img id="logo" src="{% static 'images/avatar.jpg' %}" alt="logo" class="logo-1"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-link {% if active == 'base' %}active{% endif %}" aria-current="page" href="{% url 'landing' %}">Home</a>
+            <a class="nav-link {% if active == 'journal' %}active{% endif %}" href="{% url 'journal-home' %}">Journal</a>
+            <a class="nav-link {% if active == 'achievement' %}active{% endif %}" href="{% url 'achievement-home' %}">Achievement</a>
+        </div>
+        </div>
+    </div>
+    </nav>
+    {% endif %}
+</header>
