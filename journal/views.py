@@ -34,11 +34,6 @@ class JournalListView(BaseTemplatePerModuleMixin, ListView):
     template_filename = 'list.html'
     context_object_name = "journals"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        print(context)
-        return context
-
 
 class JournalCreateView(BaseTemplatePerModuleMixin, CreateView):
     model = Journal
