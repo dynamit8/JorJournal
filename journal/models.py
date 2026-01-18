@@ -1,10 +1,13 @@
 from django.db import models
 
+from tag.models import Tag
+
 class Journal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     topic = models.CharField(max_length=100)
     logs = models.JSONField()
+    tag = models.ManyToManyField(Tag, related_name="tagged_journals")
 
     class Meta:
         ordering = ('created_at',)

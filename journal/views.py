@@ -10,6 +10,7 @@ from .serializers import JournalSerializer, LessonSerializer
 from .filters import LessonFilter
 from .forms import JournalForm
 from common.views import BaseTemplatePerModuleMixin
+from tag.models import Tag
 
 class APIJournalViewset(ModelViewSet):
     queryset = Journal.objects.all()
@@ -35,6 +36,7 @@ class JournalListView(BaseTemplatePerModuleMixin, ListView):
     TEMPLATE_DIR = 'journal'
     template_filename = 'list.html'
     context_object_name = "journals"
+    queryset = Journal.objects.prefetch_related('tag').all()
 
 
 class JournalCreateView(BaseTemplatePerModuleMixin, CreateView):
@@ -44,6 +46,20 @@ class JournalCreateView(BaseTemplatePerModuleMixin, CreateView):
     template_filename = 'create.html'
     context_object_name = "journals"
     success_url = reverse_lazy('journal-create-success')
+
+    def form_valid(self, form):
+        tag_ids = []
+        tag_input = form.cleaned_data.get("tag")
+        if tag_input:
+            tags = tag_input.split(" ")
+            for tag in tags:
+                try:
+                    tag = Tag.objects.get(name=tag)
+                except Tag.DoesNotExist:
+                    tag = Tag.objects.create(name=tag)
+                tag_ids.append(tag.id)
+            form.cleaned_data["tag"] = tag_ids
+        return super().form_valid(form)
 
 class JournalCreateSuccessView(BaseTemplatePerModuleMixin, TemplateView):
     model = Journal

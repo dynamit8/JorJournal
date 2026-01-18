@@ -38,7 +38,16 @@
                 </li>
               {% endfor %}
             </ul>
+            
           </div>
+
+        {% endfor %}
+
+      </div>
+      <div class="journal-tags">
+        {{journal.tags.all}}
+        {% for tag in journal.tag.all %}
+          <span class="badge bg-info text-dark">#{{ tag.name }}</span>
         {% endfor %}
       </div>
     </div>

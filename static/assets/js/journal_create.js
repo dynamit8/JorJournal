@@ -1,5 +1,10 @@
 // 1. Initial State: Add one block on load
-window.onload = () => addLogBlock();
+window.onload = () => initial();
+
+function initial() {
+    addLogBlock();
+    register_tags_handler();
+}
 
 function addLogBlock() {
     const container = document.getElementById('logs-container');
@@ -28,7 +33,11 @@ function prepareJson() {
         const items = Array.from(block.querySelectorAll('.item-input'))
             .map(input => input.value)
             .filter(val => val !== ""); // Remove empty items
-
+        // const tags = Array.from(block.querySelectorAll('.tag-input'))
+        //     .map(input => input.value)
+        //     .filter(val => val !== "");
+        // console.log('--------');
+        // console.log(tags);
         if (summary) {
             logs.push({ summary: summary, items: items });
         }
