@@ -7,6 +7,7 @@ from rest_framework.pagination import PageNumberPagination
 from .models import Journal, Lesson
 from .serializers import JournalSerializer, LessonSerializer
 from .filters import LessonFilter
+from .forms import JournalForm
 from common.views import BaseTemplatePerModuleMixin
 
 class APIJournalViewset(ModelViewSet):
@@ -36,8 +37,8 @@ class JournalListView(BaseTemplatePerModuleMixin, ListView):
 
 
 class JournalCreateView(BaseTemplatePerModuleMixin, CreateView):
+    form = JournalForm
     model = Journal
     TEMPLATE_DIR = 'journal'
     template_filename = 'list.html'
     context_object_name = "journals"
-

@@ -4,7 +4,7 @@ class Journal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     topic = models.CharField(max_length=100)
-    text = models.JSONField()
+    logs = models.JSONField()
 
     class Meta:
         ordering = ('created_at',)

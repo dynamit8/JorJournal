@@ -20,8 +20,8 @@
       <h4 class="updated">{{journal.updated_at}}</h4>
       <h3 class="topic">{{journal.topic}}</h3>
       
-      <div class="text">
-        {% for onelist in journal.text %}
+      <div class="logs">
+        {% for onelist in journal.logs %}
           <ul>
             {% for item in onelist %}
               <li>{{item}}</li>
