@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+
+{% block head_css %}
+{{ block.super }}
+{% endblock %}
+
+{% block topnav %}
+  {% include "base/topbar.html" %}
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block content %}
+<section class="content journal">
+  <h1>Add new journal</h1>
+    <form method="post" id="journalForm">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Topic:</label>
+            {{ form.topic }}
+        </div>
+
+        <input type="hidden" name="logs" id="id_logs">
+
+        <div id="logs-container"></div>
+
+        <button type="button" class="btn btn-secondary" onclick="addLogBlock()">+ Add Summary Block</button>
+        <hr>
+        <button type="submit" class="btn btn-primary" onclick="prepareJson()">Save Journal</button>
+        <!-- <div class="record-block">
+        </div> -->
+    </form>
+</section>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script src="{% static 'js/journal_create.js' %}"></script>
+{% endblock %}

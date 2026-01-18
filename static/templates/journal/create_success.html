@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+
+{% block head_css %}
+{{ block.super }}
+{% endblock %}
+
+{% block topnav %}
+  {% include "base/topbar.html" %}
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block content %}
+<section class="content journal">
+  <h1>New Jounal created!</h1>
+    
+    <div class="record-block">
+        <h4>{{journal.topic}}</h4>
+        <h5>{{journal.logs}}</h5>
+    </div>
+</section>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+{% endblock %}

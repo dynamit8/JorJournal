@@ -15,23 +15,35 @@
 <section class="content journal">
   <h1>List all journals</h1>
   {% for journal in journals %}
-    <div class="record-block">
-      <h4 class="created">{{journal.created_at}}</h4>
-      <h4 class="updated">{{journal.updated_at}}</h4>
-      <h3 class="topic">{{journal.topic}}</h3>
-      
-      <div class="logs">
-        {% for onelist in journal.logs %}
-          <ul>
-            {% for item in onelist %}
-              <li>{{item}}</li>
-            {% endfor %}    
-          </ul>
-          <br>
-        {% endfor %}
+    <div class="record-block mb-4 p-3 border rounded shadow-sm">
+      <div class="d-flex justify-content-between text-muted small">
+        <span>Created: {{ journal.created_at|date:"M d, Y H:i" }}</span>
+        <span>Updated: {{ journal.updated_at|date:"M d, Y H:i" }}</span>
       </div>
       
+      <h3 class="topic mt-2"><strong>{{ journal.topic }}</strong></h3>
+      
+      <div class="logs mt-3">
+        {% for log in journal.logs %}
+          <div class="log-entry mb-3">
+            <h5 class="log-summary text-primary">
+              <i class="material-symbols-outlined v-align-middle">label</i> 
+              {{ log.summary }}
+            </h5>
+            
+            <ul class="list-group list-group-flush ms-4">
+              {% for item in log.items %}
+                <li class="list-group-item bg-transparent border-0 py-1 px-0">
+                   • {{ item }}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endfor %}
+      </div>
     </div>
+  {% empty %}
+    <p>No journal entries found. <a href="{% url 'journal-create' %}">Create your first record!</a></p>
   {% endfor %}
 </section>
 {% endblock %}

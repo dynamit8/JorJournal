@@ -6,6 +6,3 @@ class JournalForm(ModelForm):
     class Meta:
         model = Journal
         fields = ["topic", "logs"]
-
-    
-

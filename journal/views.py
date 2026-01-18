@@ -1,5 +1,6 @@
 from django_filters import rest_framework as filters
 from django.views.generic import TemplateView, ListView, CreateView
+from django.urls import reverse_lazy
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.pagination import PageNumberPagination
@@ -37,8 +38,14 @@ class JournalListView(BaseTemplatePerModuleMixin, ListView):
 
 
 class JournalCreateView(BaseTemplatePerModuleMixin, CreateView):
-    form = JournalForm
+    form_class = JournalForm
     model = Journal
     TEMPLATE_DIR = 'journal'
-    template_filename = 'list.html'
+    template_filename = 'create.html'
     context_object_name = "journals"
+    success_url = reverse_lazy('journal-create-success')
+
+class JournalCreateSuccessView(BaseTemplatePerModuleMixin, TemplateView):
+    model = Journal
+    TEMPLATE_DIR = 'journal'
+    template_filename = 'create_success.html'
