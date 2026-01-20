@@ -7,4 +7,4 @@ class JournalForm(ModelForm):
     tag = forms.CharField(max_length=200)
     class Meta:
         model = Journal
-        fields = ["topic", "logs"]
+        fields = ["topic", "logs", "tag"]

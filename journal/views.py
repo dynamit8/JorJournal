@@ -1,6 +1,7 @@
 from django_filters import rest_framework as filters
 from django.views.generic import TemplateView, ListView, CreateView
 from django.urls import reverse_lazy
+from django.db.models import Count
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.pagination import PageNumberPagination
@@ -60,6 +61,14 @@ class JournalCreateView(BaseTemplatePerModuleMixin, CreateView):
                 tag_ids.append(tag.id)
             form.cleaned_data["tag"] = tag_ids
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        kwargs = super().get_context_data(**kwargs)
+        existing_tags = Tag.objects.all().annotate(journals=Count("tagged_journals"))
+        ophans = existing_tags.filter(journals=0)
+        tagged = existing_tags.filter(journals__gt=0)
+        kwargs.update({"tagged": tagged, "ophans": ophans})
+        return kwargs
 
 class JournalCreateSuccessView(BaseTemplatePerModuleMixin, TemplateView):
     model = Journal

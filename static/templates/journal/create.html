@@ -31,6 +31,15 @@
 
         <button type="button" class="btn btn-secondary" onclick="addLogBlock()">+ Add Summary Block</button>
         <hr>
+        <h5>Tags</h5>
+        {% for tag in tagged %}
+          <span class="badge bg-info text-dark">#{{ tag.name }}</span>
+        {% endfor %}
+        <h6>Unused Tags</h6>
+        {% for tag in ophans %}
+          <span class="badge bg-warning text-dark">#{{ tag.name }}</span>
+        {% endfor %}
+        <hr>
         <span class="text-danger">* separate each tag with ' '(space)</span>
         <input id="tags" type="text" name="tag" class="form-control tag-input mb-1" placeholder="tag">
         <button type="submit" class="btn btn-primary" onclick="prepareJson()">Save Journal</button>
