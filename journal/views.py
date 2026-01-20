@@ -2,6 +2,7 @@ from django_filters import rest_framework as filters
 from django.views.generic import TemplateView, ListView, CreateView
 from django.urls import reverse_lazy
 from django.db.models import Count
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.pagination import PageNumberPagination
@@ -25,14 +26,14 @@ class APILessonViewset(ModelViewSet):
     filterset_class = LessonFilter
     pagination_class = PageNumberPagination
 
-class JournalHomeView(BaseTemplatePerModuleMixin, TemplateView):
+class JournalHomeView(BaseTemplatePerModuleMixin, LoginRequiredMixin, TemplateView):
     model = Journal
     TEMPLATE_DIR = 'journal'
     template_filename = 'home.html'
     context_object_name = "journals"
 
 
-class JournalListView(BaseTemplatePerModuleMixin, ListView):
+class JournalListView(BaseTemplatePerModuleMixin, LoginRequiredMixin, ListView):
     model = Journal
     TEMPLATE_DIR = 'journal'
     template_filename = 'list.html'
@@ -40,7 +41,7 @@ class JournalListView(BaseTemplatePerModuleMixin, ListView):
     queryset = Journal.objects.prefetch_related('tag').all()
 
 
-class JournalCreateView(BaseTemplatePerModuleMixin, CreateView):
+class JournalCreateView(BaseTemplatePerModuleMixin, LoginRequiredMixin, CreateView):
     form_class = JournalForm
     model = Journal
     TEMPLATE_DIR = 'journal'
@@ -70,7 +71,7 @@ class JournalCreateView(BaseTemplatePerModuleMixin, CreateView):
         kwargs.update({"tagged": tagged, "ophans": ophans})
         return kwargs
 
-class JournalCreateSuccessView(BaseTemplatePerModuleMixin, TemplateView):
+class JournalCreateSuccessView(BaseTemplatePerModuleMixin, LoginRequiredMixin, TemplateView):
     model = Journal
     TEMPLATE_DIR = 'journal'
     template_filename = 'create_success.html'
